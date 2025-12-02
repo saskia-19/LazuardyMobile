@@ -56,11 +56,11 @@ class FilterData {
     TimeOfDay? jamMulai,
     TimeOfDay? jamSelesai,
   }) : modePembelajaran = modePembelajaran ?? [],
-       minRating = minRating ?? 1.0,
-       jenisKelamin = jenisKelamin ?? ['Semua'],
-       hariKetersediaan = hariKetersediaan ?? [],
-       jamMulai = jamMulai ?? const TimeOfDay(hour: 8, minute: 0),
-       jamSelesai = jamSelesai ?? const TimeOfDay(hour: 17, minute: 0);
+      minRating = minRating ?? 1.0,
+      jenisKelamin = jenisKelamin ?? ['Semua'],
+      hariKetersediaan = hariKetersediaan ?? [],
+      jamMulai = jamMulai ?? const TimeOfDay(hour: 8, minute: 0),
+      jamSelesai = jamSelesai ?? const TimeOfDay(hour: 17, minute: 0);
 }
 
 // =================== DASHBOARD SISWA ===================
@@ -214,7 +214,7 @@ class __BerandaPageState extends State<_BerandaPage> {
   ];
 
   String _selectedKelas = 'Kelas';
-  bool _isPaidUser = true;
+  final bool _isPaidUser = true;
 
   @override
   void initState() {
@@ -970,13 +970,15 @@ class _FilterTutorPageState extends State<FilterTutorPage> {
                   _filters.jenisKelamin = ['Semua'];
                 } else {
                   _filters.jenisKelamin.remove('Semua');
-                  if (!_filters.jenisKelamin.contains(g))
+                  if (!_filters.jenisKelamin.contains(g)) {
                     _filters.jenisKelamin.add(g);
+                  }
                 }
               } else {
                 _filters.jenisKelamin.remove(g);
-                if (_filters.jenisKelamin.isEmpty)
+                if (_filters.jenisKelamin.isEmpty) {
                   _filters.jenisKelamin.add('Semua');
+                }
               }
             });
           },
@@ -1489,8 +1491,9 @@ class _JadwalMengajarPageState extends State<JadwalMengajarPage> {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (picked != null && picked != _selectedDate)
+    if (picked != null && picked != _selectedDate) {
       setState(() => _selectedDate = picked);
+    }
   }
 }
 

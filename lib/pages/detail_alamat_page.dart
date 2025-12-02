@@ -7,9 +7,10 @@ import 'package:geocoding/geocoding.dart';
 import 'package:flutter_application_1/pages/dashboard_siswa_page.dart';
 
 class DetailAlamatPage extends StatefulWidget {
-  final String namaSiswa;
+  String? namaSiswa;
 
-  const DetailAlamatPage({super.key, required this.namaSiswa});
+
+  DetailAlamatPage({super.key, this.namaSiswa});
 
   @override
   State<DetailAlamatPage> createState() => _DetailAlamatPageState();
@@ -276,7 +277,7 @@ class _DetailAlamatPageState extends State<DetailAlamatPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => DashboardSiswaPage(namaSiswa: widget.namaSiswa),
+          builder: (context) => DashboardSiswaPage(namaSiswa: widget.namaSiswa!),
         ),
       );
     }
@@ -448,7 +449,7 @@ class _DetailAlamatPageState extends State<DetailAlamatPage> {
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           onChanged: isEnabled ? onChanged : null,
-          value: value,
+          initialValue: value,
           isExpanded: true,
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),

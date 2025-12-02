@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import ini untuk FilteringTextInputFormatter
+import 'package:flutter_application_1/models/register_tutor_data_model.dart';
 
 // Ganti dengan halaman tujuan Anda setelah verifikasi berhasil
 import 'package:flutter_application_1/pages/detail_pribadi_siswa_page.dart';
 
 class OTPVerificationPage extends StatefulWidget {
-  final String email;
+  final RegisterTutorDataModel? tutorData;
+  final String? email;
 
-  const OTPVerificationPage({super.key, required this.email});
+  const OTPVerificationPage({super.key, this.tutorData, this.email});
 
   @override
   State<OTPVerificationPage> createState() => _OTPVerificationPageState();

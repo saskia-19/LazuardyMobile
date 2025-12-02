@@ -294,7 +294,7 @@ class _DetailPribadiPageState extends State<DetailPribadiPage> {
       decoration: _inputDecoration(),
       isExpanded: true,
       hint: Text(hint, style: const TextStyle(color: Colors.grey)),
-      value: value,
+      initialValue: value,
       items: items
           .map((item) => DropdownMenuItem(value: item, child: Text(item)))
           .toList(),

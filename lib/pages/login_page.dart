@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/sign_in_siswa_page.dart';
+import 'package:flutter_application_1/pages/sign_up_tutor_page.dart';
 import 'package:flutter_application_1/services/auth_service.dart'; // tambahkan ini
 import 'package:flutter_application_1/pages/dashboard_siswa_page.dart';
 import 'package:flutter_application_1/pages/lupa_password.dart';
-//import 'package:flutter_application_1/pages/dashboard_tutor_page.dart';
+// import 'package:flutter_application_1/pages/dashboard_tutor_page.dart';
+import 'package:flutter_application_1/pages/detail_pribadi_tutor_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -119,14 +121,19 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const TextSpan(text: ' atau '),
                       TextSpan(
-                        text: 'Daftar sebagai tutor',
+                        text: 'Daftar sebagai tentor',
                         style: const TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            print('Navigasi ke Daftar Tutor');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpTutorPage(),
+                              ),
+                            );                          
                           },
                       ),
                     ],
