@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_constants.dart';
 import 'package:flutter_application_1/models/register_tutor_data_model.dart';
-import 'package:flutter_application_1/pages/detail_pribadi_tutor_page.dart';
-import 'package:flutter_application_1/pages/otp_verification_page.dart';
-import 'package:flutter_application_1/services/post_email_register_service.dart';
+import 'package:flutter_application_1/pages/profile/detail_pribadi_tutor_page.dart';
+import 'package:flutter_application_1/pages/auth/otp_verification_page.dart';
+import 'package:flutter_application_1/services/auth/post_email_register_service.dart';
 import 'package:flutter_application_1/widgets/form_field_widget.dart';
 import 'package:flutter_application_1/widgets/header_widget.dart';
 
@@ -37,7 +37,6 @@ class _SignUpTutorPageState extends State<SignUpTutorPage> {
     final String email = _emailController.text;
     final String password = _passwordController.text;
     final String confirmPassword = _confirmPasswordController.text;
-    RegisterTutorDataModel data;
 
     final String? errorMessage = await PostEmailRegisterService().emailRegister(
       email,
@@ -45,7 +44,7 @@ class _SignUpTutorPageState extends State<SignUpTutorPage> {
       confirmPassword,
     );
 
-    data = RegisterTutorDataModel(
+    RegisterTutorDataModel data = RegisterTutorDataModel(
       email: email,
       password: password,
       confirmPassword: confirmPassword,
@@ -62,7 +61,7 @@ class _SignUpTutorPageState extends State<SignUpTutorPage> {
       // NAVIGASI HANYA JIKA TIDAK ADA ERROR
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => OTPVerificationPage(email: email,)),
+        MaterialPageRoute(builder: (context) => OTPVerificationPage(tutorData: data)),
       );
     } else {
       _showSnackBar(context, errorMessage, Colors.red);

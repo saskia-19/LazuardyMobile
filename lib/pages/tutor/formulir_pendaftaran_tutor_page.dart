@@ -28,7 +28,12 @@ class _FormulirPendaftaranTutorPageState extends State<FormulirPendaftaranTutorP
   List<String> _kelasOptions = [];
   List<String> _mataPelajaranOptions = [];
 
-
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Proses data form di sini
+      print('Form submitted successfully');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +176,11 @@ class _FormulirPendaftaranTutorPageState extends State<FormulirPendaftaranTutorP
                 ),
               ),
 
+            CustomSubmitButton(
+              text: "Selanjutnya", 
+              onPressed: _submitForm,
+            ),
+
             ],
           ),
         ),
@@ -180,23 +190,23 @@ class _FormulirPendaftaranTutorPageState extends State<FormulirPendaftaranTutorP
 }
 
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lazuardi App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const FormulirPendaftaranTutorPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Lazuardi App',
+//       theme: ThemeData(
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+//         useMaterial3: true,
+//       ),
+//       home: const FormulirPendaftaranTutorPage(),
+//       debugShowCheckedModeBanner: false,
+//     );
+//   }
+// }

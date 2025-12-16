@@ -1,8 +1,8 @@
 // Mengasumsikan file ini berada di lokasi yang sama dengan file asli dan OTPVerificationPage tersedia.
 // Walaupun namanya 'SignInSiswaPage', kontennya disesuaikan untuk halaman 'Daftar' (Sign Up) sesuai desain.
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/otp_verification_page.dart';
-import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/pages/auth/otp_verification_page.dart';
+import 'package:flutter_application_1/pages/auth/login_page.dart';
 
 class SignInSiswaPage extends StatefulWidget {
   const SignInSiswaPage({super.key});

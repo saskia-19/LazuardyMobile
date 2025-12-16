@@ -1,16 +1,21 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/register_tutor_data_model.dart';
+import 'package:flutter_application_1/pages/tutor/formulir_pendaftaran_tutor_page.dart';
+import 'package:flutter_application_1/services/auth/register_tutor_service.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
-import 'package:flutter_application_1/pages/dashboard_siswa_page.dart';
+import 'package:flutter_application_1/pages/dashboard/dashboard_siswa_page.dart';
 
 class DetailAlamatPage extends StatefulWidget {
   String? namaSiswa;
+  RegisterTutorDataModel? registerTutorDataModel;
 
-
-  DetailAlamatPage({super.key, this.namaSiswa});
+  DetailAlamatPage({super.key, this.namaSiswa, this.registerTutorDataModel});
 
   @override
   State<DetailAlamatPage> createState() => _DetailAlamatPageState();
@@ -24,6 +29,9 @@ class _DetailAlamatPageState extends State<DetailAlamatPage> {
   String? _selectedKota;
   String? _selectedKecamatan;
   String? _selectedDesa;
+
+  double? _latitude;
+  double? _longitude;
 
   List<dynamic> _provinsiList = [];
   List<dynamic> _kotaList = [];
@@ -255,6 +263,11 @@ class _DetailAlamatPageState extends State<DetailAlamatPage> {
       desiredAccuracy: LocationAccuracy.high,
     );
 
+    setState(() {
+      _latitude = position.latitude;
+      _longitude = position.longitude;
+    });
+
     List<Placemark> placemarks = await placemarkFromCoordinates(
       position.latitude,
       position.longitude,
@@ -274,12 +287,41 @@ class _DetailAlamatPageState extends State<DetailAlamatPage> {
   // --- Submit Form ---
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DashboardSiswaPage(namaSiswa: widget.namaSiswa!),
-        ),
-      );
+      if (widget.registerTutorDataModel != null) {
+        widget.registerTutorDataModel!.province = _selectedProvinsi;
+        widget.registerTutorDataModel!.regency = _selectedKota;
+        widget.registerTutorDataModel!.district = _selectedKecamatan;
+        widget.registerTutorDataModel!.subdistrict = _selectedDesa;
+        widget.registerTutorDataModel!.street = _alamatLengkapController.text;
+        widget.registerTutorDataModel!.latitude = _latitude;
+        widget.registerTutorDataModel!.longitude = _longitude;
+        
+        RegisterTutorService().registerTutor(widget.registerTutorDataModel!).then((errorMessage) {
+          if (errorMessage == null) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FormulirPendaftaranTutorPage(),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        });
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                DashboardSiswaPage(namaSiswa: widget.namaSiswa!),
+          ),
+        );
+      }
     }
   }
 

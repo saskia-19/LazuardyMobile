@@ -15,8 +15,8 @@ class RegisterTutorDataModel {
   String? district;
   String? subdistrict;
   String? street;
-  String? latitude;
-  String? longitude;
+  double? latitude;
+  double? longitude;
 
   // tutor
   String? bank;
@@ -34,12 +34,15 @@ class RegisterTutorDataModel {
     this.telephoneNumber,
     this.photoProfile,
     this.religion,
+
     this.province,
     this.regency,
     this.district,
     this.subdistrict,
+    this.street,
     this.latitude,
     this.longitude,
+    
     this.bank,
     this.rekening,
   });
@@ -50,7 +53,7 @@ class RegisterTutorDataModel {
     'password_confirmation': confirmPassword,
     'name': name,
     'gender': gender,
-    'date_of_birth': dateOfBirth,
+    'date_of_birth': dateOfBirth!.toIso8601String(),
     'telephone_number': telephoneNumber,
     'religion': religion,
     'province': province,

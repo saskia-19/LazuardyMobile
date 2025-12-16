@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_constants.dart';
 import 'package:flutter_application_1/models/form_data_model.dart';
-import 'package:flutter_application_1/services/get_register_form_service.dart';
+import 'package:flutter_application_1/models/register_tutor_data_model.dart';
+import 'package:flutter_application_1/pages/profile/detail_alamat_page.dart';
+import 'package:flutter_application_1/services/auth/get_register_form_service.dart';
+import 'package:flutter_application_1/services/auth/register_tutor_service.dart';
 import 'package:flutter_application_1/widgets/header_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_application_1/widgets/form_field_widget.dart';
 
 class DetailPribadiTutorPage extends StatefulWidget {
-  const DetailPribadiTutorPage({super.key});
+  RegisterTutorDataModel? registerTutorDataModel;
+  
+  DetailPribadiTutorPage({super.key, this.registerTutorDataModel});
 
   @override
   State<DetailPribadiTutorPage> createState() => _DetailPribadiTutorPageState();
@@ -121,25 +126,23 @@ class _DetailPribadiTutorPageState extends State<DetailPribadiTutorPage> {
     if (_formKey.currentState!.validate()) {
       String tanggalLahir = _selectedTanggalLahir!.toIso8601String();
 
-      final Map<String, dynamic> dataTutor = {
-        'nama': _namaController.text.trim(),
-        'jenisKelamin': _selectedJenisKelamin!,
-        'agama': _selectedAgama!,
-        'whatsapp': _whatsappController.text,
-        'bank': _selectedBank!,
-        'tanggal_lahir': tanggalLahir,
-        'rekening': _nomorRekeningController.text,
-        'fotoProfile': _imageFile,
-      };
+      if(widget.registerTutorDataModel != null) {
+        widget.registerTutorDataModel!.name = _namaController.text.trim();
+        widget.registerTutorDataModel!.gender = _selectedJenisKelamin;
+        widget.registerTutorDataModel!.dateOfBirth = _selectedTanggalLahir;
+        widget.registerTutorDataModel!.telephoneNumber = _whatsappController.text;
+        widget.registerTutorDataModel!.religion = _selectedAgama;
+        widget.registerTutorDataModel!.bank = _selectedBank;
+        widget.registerTutorDataModel!.rekening = _nomorRekeningController.text;
+        widget.registerTutorDataModel!.photoProfile = _imageFile;
 
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const DetailAlamatPage(), // Halaman yang dituju
-      //   ),
-      // );
-
-      print('Data siap dikirim: $dataTutor');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailAlamatPage(registerTutorDataModel: widget.registerTutorDataModel)
+          ),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -249,25 +252,11 @@ class _DetailPribadiTutorPageState extends State<DetailPribadiTutorPage> {
               ),
             ),
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _submitForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.primary,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text(
-                  'Selanjutnya',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
+            CustomSubmitButton(
+              text: "Selanjutnya", 
+              onPressed: _submitForm,
             ),
+
             const SizedBox(height: 32),
           ],
         ),

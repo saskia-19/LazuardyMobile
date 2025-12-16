@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/edit_profile_page.dart'; // Halaman edit profil
+import 'package:flutter_application_1/pages/profile/edit_profile_page.dart'; // Halaman edit profil
 
 class ProfileSiswaPage extends StatefulWidget {
   final String namaSiswa;

@@ -625,7 +625,7 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: widget.allowedExtensions,
-        allowMultiple: allowMulti, 
+        allowMultiple: allowMulti,
       );
 
       if (result != null) {
@@ -637,14 +637,14 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
           allFiles = [..._selectedFiles, ...newFiles];
         } else {
           // Mode Single-Select (maxFiles=1): Ganti file lama dengan yang baru
-          allFiles = newFiles; 
+          allFiles = newFiles;
         }
 
         // Hapus duplikat berdasarkan nama file dan batasi jumlah file
         Map<String, PlatformFile> uniqueFiles = {};
         for (var file in allFiles) {
           // Menggunakan nama file sebagai kunci unik
-          uniqueFiles[file.name] = file; 
+          uniqueFiles[file.name] = file;
         }
 
         List<PlatformFile> finalFiles = uniqueFiles.values.toList();
@@ -652,7 +652,9 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
         if (finalFiles.length > widget.maxFiles) {
           // Beri pesan peringatan jika melebihi batas
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Maksimal ${widget.maxFiles} file yang diizinkan.')),
+            SnackBar(
+              content: Text('Maksimal ${widget.maxFiles} file yang diizinkan.'),
+            ),
           );
           finalFiles = finalFiles.sublist(0, widget.maxFiles);
         }
@@ -667,7 +669,7 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
       print("Error picking file: $e");
     }
   }
-  
+
   void _removeFile(PlatformFile fileToRemove) {
     setState(() {
       _selectedFiles.removeWhere((file) => file.name == fileToRemove.name);
@@ -683,49 +685,55 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
     final String buttonText;
 
     if (isSingleFileMode) {
-      buttonText = hasFiles 
-          ? 'Ganti ${widget.labelText} (${_selectedFiles.first.name})' 
+      buttonText = hasFiles
+          ? 'Ganti ${widget.labelText} (${_selectedFiles.first.name})'
           : 'Pilih 1 ${widget.labelText}';
     } else {
-      buttonText = filesCount < widget.maxFiles 
+      buttonText = filesCount < widget.maxFiles
           ? 'Pilih hingga ${widget.maxFiles - filesCount} ${widget.labelText} lainnya'
           : 'Batas ${widget.maxFiles} file tercapai';
     }
 
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColor.fieldBorder,
-          width: 1,
-        ),
+        border: Border.all(color: AppColor.fieldBorder, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 1. Tombol Utama untuk Memilih File
           GestureDetector(
-            onTap: filesCount < widget.maxFiles || isSingleFileMode ? _pickFiles : null,
+            onTap: filesCount < widget.maxFiles || isSingleFileMode
+                ? _pickFiles
+                : null,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               decoration: BoxDecoration(
                 // Warna abu-abu jika batas sudah tercapai dan bukan mode single file
-                color: filesCount < widget.maxFiles || isSingleFileMode ? null : AppColor.fieldBorder.withOpacity(0.3),
-                borderRadius: filesCount > 0 && !isSingleFileMode ? const BorderRadius.vertical(top: Radius.circular(8)) : BorderRadius.circular(8)
+                color: filesCount < widget.maxFiles || isSingleFileMode
+                    ? null
+                    : AppColor.fieldBorder.withOpacity(0.3),
+                borderRadius: filesCount > 0 && !isSingleFileMode
+                    ? const BorderRadius.vertical(top: Radius.circular(8))
+                    : BorderRadius.circular(8),
               ),
               child: Row(
                 children: [
                   Icon(
                     Icons.cloud_upload_outlined,
-                    color: filesCount < widget.maxFiles || isSingleFileMode ? AppColor.primary : Colors.grey,
+                    color: filesCount < widget.maxFiles || isSingleFileMode
+                        ? AppColor.primary
+                        : Colors.grey,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       buttonText,
                       style: TextStyle(
-                        color: filesCount < widget.maxFiles || isSingleFileMode ? AppColor.primary : Colors.grey,
+                        color: filesCount < widget.maxFiles || isSingleFileMode
+                            ? AppColor.primary
+                            : Colors.grey,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -737,57 +745,91 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
               ),
             ),
           ),
-          
-          // 2. Daftar File yang Sudah Dipilih (Hanya ditampilkan jika mode multi-file, 
+
+          // 2. Daftar File yang Sudah Dipilih (Hanya ditampilkan jika mode multi-file,
           // atau jika mode single-file tapi ada file yang terpilih)
           if (hasFiles && !isSingleFileMode)
-            ..._selectedFiles.map((file) => Column(
-              children: [
-                const Divider(height: 1, thickness: 1, color: AppColor.fieldBorder),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.insert_drive_file_outlined, color: AppColor.inactiveTextField, size: 20),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              file.name,
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              _formatFileSize(file.size ?? 0),
-                              style: const TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete_outline, size: 20, color: Colors.red),
-                        onPressed: () => _removeFile(file),
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                      ),
-                    ],
+            ..._selectedFiles.map(
+              (file) => Column(
+                children: [
+                  const Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: AppColor.fieldBorder,
                   ),
-                ),
-              ],
-            )),
-          
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 8.0,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.insert_drive_file_outlined,
+                          color: AppColor.inactiveTextField,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                file.name,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                _formatFileSize(file.size ?? 0),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            size: 20,
+                            color: Colors.red,
+                          ),
+                          onPressed: () => _removeFile(file),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
           // 2B. Tampilan File untuk Mode Single File (maxFiles=1)
           if (hasFiles && isSingleFileMode)
             Column(
               children: [
-                const Divider(height: 1, thickness: 1, color: AppColor.fieldBorder),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: AppColor.fieldBorder,
+                ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
                   child: Row(
                     children: [
-                      const Icon(Icons.insert_drive_file_outlined, color: AppColor.inactiveTextField, size: 20),
+                      const Icon(
+                        Icons.insert_drive_file_outlined,
+                        color: AppColor.inactiveTextField,
+                        size: 20,
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
@@ -795,18 +837,28 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
                           children: [
                             Text(
                               _selectedFiles.first.name,
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               _formatFileSize(_selectedFiles.first.size ?? 0),
-                              style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.delete_outline, size: 20, color: Colors.red),
+                        icon: const Icon(
+                          Icons.delete_outline,
+                          size: 20,
+                          color: Colors.red,
+                        ),
                         onPressed: () => _removeFile(_selectedFiles.first),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
@@ -819,5 +871,57 @@ class _CustomFilePickerFieldState extends State<CustomFilePickerField> {
         ],
       ),
     );
+  }
+}
+
+class CustomSubmitButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const CustomSubmitButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColor.primary,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 0,
+        ),
+        child: Text(text, style: const TextStyle(fontSize: 16)),
+      ),
+    );
+  }
+}
+
+class CustomScheduleField extends StatefulWidget {
+  final bool isSelected;
+  final VoidCallbackAction onTap;
+
+  const CustomScheduleField({
+    super.key,
+    required this.onTap,
+    this.isSelected = false,
+  });
+
+  @override
+  State<CustomScheduleField> createState() => _CustomScheduleFieldState();
+}
+
+class _CustomScheduleFieldState extends State<CustomScheduleField> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

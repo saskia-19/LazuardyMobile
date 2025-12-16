@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/sidebar/sidebar_widget.dart';
 
 // ======================================================
 // dashboard_siswa_page.dart
@@ -56,11 +57,11 @@ class FilterData {
     TimeOfDay? jamMulai,
     TimeOfDay? jamSelesai,
   }) : modePembelajaran = modePembelajaran ?? [],
-      minRating = minRating ?? 1.0,
-      jenisKelamin = jenisKelamin ?? ['Semua'],
-      hariKetersediaan = hariKetersediaan ?? [],
-      jamMulai = jamMulai ?? const TimeOfDay(hour: 8, minute: 0),
-      jamSelesai = jamSelesai ?? const TimeOfDay(hour: 17, minute: 0);
+       minRating = minRating ?? 1.0,
+       jenisKelamin = jenisKelamin ?? ['Semua'],
+       hariKetersediaan = hariKetersediaan ?? [],
+       jamMulai = jamMulai ?? const TimeOfDay(hour: 8, minute: 0),
+       jamSelesai = jamSelesai ?? const TimeOfDay(hour: 17, minute: 0);
 }
 
 // =================== DASHBOARD SISWA ===================
@@ -115,10 +116,15 @@ class _DashboardSiswaPageState extends State<DashboardSiswaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
+      // drawer: SidebarDrawer(
+      //   namaSiswa: widget.namaSiswa,
+      //   kelasSiswa: widget.kelasSiswa ?? '—',
+      // ),
       drawer: SidebarDrawer(
-        namaSiswa: widget.namaSiswa,
-        kelasSiswa: widget.kelasSiswa ?? '—',
+        username: widget.namaSiswa,
+        subtitle: widget.kelasSiswa ?? '-',
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
@@ -1698,120 +1704,120 @@ class PackageDetailDialog extends StatelessWidget {
 }
 
 // =================== SIDEBAR ===================
-class SidebarDrawer extends StatelessWidget {
-  final String namaSiswa;
-  final String kelasSiswa;
+// class SidebarDrawer extends StatelessWidget {
+//   final String namaSiswa;
+//   final String kelasSiswa;
 
-  const SidebarDrawer({
-    super.key,
-    required this.namaSiswa,
-    required this.kelasSiswa,
-  });
+//   const SidebarDrawer({
+//     super.key,
+//     required this.namaSiswa,
+//     required this.kelasSiswa,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 24),
-            const CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.grey,
-              child: Icon(Icons.person, size: 50, color: Colors.white),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              namaSiswa,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 4),
-            Text(kelasSiswa, style: const TextStyle(color: Colors.black54)),
-            const SizedBox(height: 24),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: [
-                  _buildMenuItem(
-                    icon: Icons.bar_chart_outlined,
-                    label: 'Evaluasi',
-                    onTap: () {},
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.receipt_long_outlined,
-                    label: 'Riwayat Transaksi',
-                    onTap: () {},
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.reviews_outlined,
-                    label: 'Review Tutor',
-                    onTap: () {},
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.chat_bubble_outline,
-                    label: 'Hubungi Kami',
-                    onTap: () {},
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.info_outline,
-                    label: 'Tentang Kami',
-                    onTap: () {},
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.settings_outlined,
-                    label: 'Pengaturan',
-                    onTap: () {},
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.logout,
-                    label: 'Keluar',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Drawer(
+//       child: SafeArea(
+//         child: Column(
+//           children: [
+//             const SizedBox(height: 24),
+//             const CircleAvatar(
+//               radius: 40,
+//               backgroundColor: Colors.grey,
+//               child: Icon(Icons.person, size: 50, color: Colors.white),
+//             ),
+//             const SizedBox(height: 12),
+//             Text(
+//               namaSiswa,
+//               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+//             ),
+//             const SizedBox(height: 4),
+//             Text(kelasSiswa, style: const TextStyle(color: Colors.black54)),
+//             const SizedBox(height: 24),
+//             Expanded(
+//               child: ListView(
+//                 padding: const EdgeInsets.symmetric(horizontal: 16),
+//                 children: [
+//                   _buildMenuItem(
+//                     icon: Icons.bar_chart_outlined,
+//                     label: 'Evaluasi',
+//                     onTap: () {},
+//                   ),
+//                   _buildMenuItem(
+//                     icon: Icons.receipt_long_outlined,
+//                     label: 'Riwayat Transaksi',
+//                     onTap: () {},
+//                   ),
+//                   _buildMenuItem(
+//                     icon: Icons.reviews_outlined,
+//                     label: 'Review Tutor',
+//                     onTap: () {},
+//                   ),
+//                   _buildMenuItem(
+//                     icon: Icons.chat_bubble_outline,
+//                     label: 'Hubungi Kami',
+//                     onTap: () {},
+//                   ),
+//                   _buildMenuItem(
+//                     icon: Icons.info_outline,
+//                     label: 'Tentang Kami',
+//                     onTap: () {},
+//                   ),
+//                   _buildMenuItem(
+//                     icon: Icons.settings_outlined,
+//                     label: 'Pengaturan',
+//                     onTap: () {},
+//                   ),
+//                   _buildMenuItem(
+//                     icon: Icons.logout,
+//                     label: 'Keluar',
+//                     onTap: () {},
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
 
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFF2C8AA4), width: 1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              Icon(icon, color: Colors.black, size: 22),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   Widget _buildMenuItem({
+//     required IconData icon,
+//     required String label,
+//     required VoidCallback onTap,
+//   }) {
+//     return Padding(
+//       padding: const EdgeInsets.only(bottom: 12),
+//       child: InkWell(
+//         onTap: onTap,
+//         borderRadius: BorderRadius.circular(12),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: const Color(0xFF2C8AA4), width: 1),
+//             borderRadius: BorderRadius.circular(12),
+//           ),
+//           child: Row(
+//             children: [
+//               Icon(icon, color: Colors.black, size: 22),
+//               const SizedBox(width: 12),
+//               Expanded(
+//                 child: Text(
+//                   label,
+//                   style: const TextStyle(
+//                     fontSize: 15,
+//                     fontWeight: FontWeight.w500,
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // =================== PROFIL SISWA (placeholder sederhana) ===================
 class ProfileSiswaPage extends StatelessWidget {

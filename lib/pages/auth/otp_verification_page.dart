@@ -4,7 +4,8 @@ import 'package:flutter/services.dart'; // Import ini untuk FilteringTextInputFo
 import 'package:flutter_application_1/models/register_tutor_data_model.dart';
 
 // Ganti dengan halaman tujuan Anda setelah verifikasi berhasil
-import 'package:flutter_application_1/pages/detail_pribadi_siswa_page.dart';
+import 'package:flutter_application_1/pages/profile/detail_pribadi_siswa_page.dart';
+import 'package:flutter_application_1/pages/profile/detail_pribadi_tutor_page.dart';
 
 class OTPVerificationPage extends StatefulWidget {
   final RegisterTutorDataModel? tutorData;
@@ -98,10 +99,17 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     if (otp.length == 4) {
       print('Verifying OTP: $otp');
       // Jika verifikasi berhasil, navigasi ke halaman selanjutnya
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const DetailPribadiPage()),
-      );
+      if (widget.tutorData != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => DetailPribadiTutorPage(registerTutorDataModel: widget.tutorData)),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const DetailPribadiPage()),
+        );
+      }
     } else {
       // Tampilkan pesan error jika OTP belum lengkap
       ScaffoldMessenger.of(

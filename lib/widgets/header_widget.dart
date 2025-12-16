@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_constants.dart';
-import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/pages/auth/login_page.dart';
 
 class LogoHeaderWidget extends StatelessWidget {
   final double logoHeight;

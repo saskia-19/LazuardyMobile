@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_application_1/pages/detail_alamat_page.dart';
+import 'package:flutter_application_1/pages/profile/detail_alamat_page.dart';
 
 class DetailPribadiPage extends StatefulWidget {
   const DetailPribadiPage({super.key});
