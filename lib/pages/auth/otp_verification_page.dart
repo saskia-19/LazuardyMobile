@@ -5,7 +5,7 @@ import 'package:flutter_application_1/models/register_tutor_data_model.dart';
 
 // Ganti dengan halaman tujuan Anda setelah verifikasi berhasil
 import 'package:flutter_application_1/pages/profile/detail_pribadi_siswa_page.dart';
-import 'package:flutter_application_1/pages/profile/detail_pribadi_tutor_page.dart';
+import 'package:flutter_application_1/pages/profile/tutor/detail_pribadi_tutor_page.dart';
 
 class OTPVerificationPage extends StatefulWidget {
   final RegisterTutorDataModel? tutorData;

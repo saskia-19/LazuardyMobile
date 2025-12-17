@@ -4,15 +4,14 @@ import 'package:flutter_application_1/models/form_data_model.dart';
 import 'package:flutter_application_1/models/register_tutor_data_model.dart';
 import 'package:flutter_application_1/pages/profile/detail_alamat_page.dart';
 import 'package:flutter_application_1/services/auth/get_register_form_service.dart';
-import 'package:flutter_application_1/services/auth/register_tutor_service.dart';
 import 'package:flutter_application_1/widgets/header_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_application_1/widgets/form_field_widget.dart';
 
 class DetailPribadiTutorPage extends StatefulWidget {
-  RegisterTutorDataModel? registerTutorDataModel;
+  final RegisterTutorDataModel? registerTutorDataModel;
   
-  DetailPribadiTutorPage({super.key, this.registerTutorDataModel});
+  const DetailPribadiTutorPage({super.key, this.registerTutorDataModel});
 
   @override
   State<DetailPribadiTutorPage> createState() => _DetailPribadiTutorPageState();

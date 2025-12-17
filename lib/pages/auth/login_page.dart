@@ -6,7 +6,7 @@ import 'package:flutter_application_1/services/auth/auth_service.dart'; // tamba
 import 'package:flutter_application_1/pages/dashboard/dashboard_siswa_page.dart';
 import 'package:flutter_application_1/pages/auth/lupa_password.dart';
 // import 'package:flutter_application_1/pages/dashboard_tutor_page.dart';
-import 'package:flutter_application_1/pages/profile/detail_pribadi_tutor_page.dart';
+import 'package:flutter_application_1/pages/profile/tutor/detail_pribadi_tutor_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

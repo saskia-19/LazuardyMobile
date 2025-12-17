@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class SidebarDrawer extends StatelessWidget {
+class SidebarDrawerWidget extends StatelessWidget {
   final String username;
   final String subtitle; //kelas atau mengajar apa
 
-  const SidebarDrawer({
+  const SidebarDrawerWidget({
     super.key,
     required this.username,
     required this.subtitle,

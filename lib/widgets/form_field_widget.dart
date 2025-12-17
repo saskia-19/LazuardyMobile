@@ -152,7 +152,7 @@ class CustomPasswordField extends StatelessWidget {
 
 // 2. Custom TextFormField
 class CustomTextFormField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool readOnly;
   final VoidCallback? onTap;
   final Widget? suffixIcon;
@@ -162,7 +162,7 @@ class CustomTextFormField extends StatelessWidget {
 
   const CustomTextFormField({
     super.key,
-    required this.controller,
+    this.controller,
     this.readOnly = false,
     this.onTap,
     this.suffixIcon,
@@ -557,12 +557,14 @@ class LabeledFormWrapper extends StatelessWidget {
   final String label;
   final Widget child;
   final double verticalSpacing;
+  final FontWeight fontWeight;
 
   const LabeledFormWrapper({
     super.key,
     required this.label,
     required this.child,
     this.verticalSpacing = 16.0,
+    this.fontWeight = FontWeight.w500,
   });
 
   @override
@@ -576,7 +578,7 @@ class LabeledFormWrapper extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              fontWeight: fontWeight,
               color: _kLabelColor,
             ),
           ),

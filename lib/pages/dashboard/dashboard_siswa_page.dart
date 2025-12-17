@@ -120,7 +120,7 @@ class _DashboardSiswaPageState extends State<DashboardSiswaPage> {
       //   namaSiswa: widget.namaSiswa,
       //   kelasSiswa: widget.kelasSiswa ?? '—',
       // ),
-      drawer: SidebarDrawer(
+      drawer: SidebarDrawerWidget(
         username: widget.namaSiswa,
         subtitle: widget.kelasSiswa ?? '-',
       ),

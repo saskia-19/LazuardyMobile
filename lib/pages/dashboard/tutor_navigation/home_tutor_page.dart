@@ -1,50 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_constants.dart';
 import 'package:flutter_application_1/models/menu_item_model.dart';
-import 'package:flutter_application_1/widgets/dashboard/bottom_navigation_widget.dart';
+import 'package:flutter_application_1/pages/tutor/tampilan_profile_tutor_page.dart';
 import 'package:flutter_application_1/widgets/dashboard/section_card_widget.dart';
 import 'package:flutter_application_1/widgets/header/header_dashboard_widget.dart';
 import 'package:flutter_application_1/widgets/jadwal_tutor_widget.dart';
 import 'package:flutter_application_1/widgets/menu_item_widget.dart';
 import 'package:flutter_application_1/widgets/progressbar_widget.dart';
-import 'package:flutter_application_1/widgets/sidebar/sidebar_widget.dart';
 
-class DashboardTutorPage extends StatefulWidget {
-  const DashboardTutorPage({super.key});
+class HomeTutorPage extends StatefulWidget {
+  const HomeTutorPage({super.key});
 
   @override
-  State<DashboardTutorPage> createState() => _DashboardTutorPageState();
+  State<HomeTutorPage> createState() => _HomeTutorPageState();
 }
 
-class _DashboardTutorPageState extends State<DashboardTutorPage> {
+class _HomeTutorPageState extends State<HomeTutorPage> {
   final String username = 'Mardhika';
   final String status = 'aktif';
   final int totalPengajuanSiswa = 0;
   final int totalPengajuanDiterima = 0;
-  int _selectedIndex = 0;
 
-  final List<MenuItemModel> menuItems = [
-    MenuItemModel(
-      iconAsset: 'assets/images/icons/daftar_siswa.png',
-      label: "Daftar Siswa",
-      onTap: () => print('pindah ke halaman daftar siswa'),
-    ),
-    MenuItemModel(
-      iconAsset: 'assets/images/icons/tampilan_profile_tutor.png',
-      label: "Tampilan Profil Tutor",
-      onTap: () => print('pindah ke halaman profil tutor'),
-    ),
-    MenuItemModel(
-      iconAsset: 'assets/images/icons/lencana.png',
-      label: "Lencana",
-      onTap: () => print('pindah ke halaman lencana'),
-    ),
-    MenuItemModel(
-      iconAsset: 'assets/images/icons/ulasan.png',
-      label: "Ulasan",
-      onTap: () => print('pindah ke halaman ulasan'),
-    ),
-  ];
+  List<MenuItemModel> get menuItems { 
+    return [
+      MenuItemModel(
+        iconAsset: 'assets/images/icons/daftar_siswa.png',
+        label: "Daftar Siswa",
+        onTap: () => print('pindah ke halaman daftar siswa'),
+      ),
+      MenuItemModel(
+        iconAsset: 'assets/images/icons/tampilan_profile_tutor.png',
+        label: "Tampilan Profil Tutor",
+        onTap: () {
+          Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TampilanProfileTutorPage())
+          );
+        },
+      ),
+      MenuItemModel(
+        iconAsset: 'assets/images/icons/lencana.png',
+        label: "Lencana",
+        onTap: () => print('pindah ke halaman lencana'),
+      ),
+      MenuItemModel(
+        iconAsset: 'assets/images/icons/ulasan.png',
+        label: "Ulasan",
+        onTap: () => print('pindah ke halaman ulasan'),
+      ),
+    ];
+  }
 
   final List<DataJadwalTutorModel> jadwalTutor = [
     DataJadwalTutorModel(
@@ -69,34 +73,8 @@ class _DashboardTutorPageState extends State<DashboardTutorPage> {
     ),
   ];
 
-  void _onItemTapped(int index) => setState(() => _selectedIndex = index);
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: SidebarDrawer(username: username, subtitle: status),
-      body: _buildDashboardTutor(),
-      backgroundColor: AppColor.background,
-      bottomNavigationBar: BottomNavigationWidget(
-        onItemTapped: _onItemTapped, 
-        selectedIndex: _selectedIndex,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
-          BottomNavigationBarItem(icon: Icon(Icons.assignment_outlined), label: 'Presensi'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Jadwal',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profil',
-          ),
-        ]
-      ),
-    );
-  }
-
-  Widget _buildDashboardTutor() {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -226,27 +204,6 @@ class _DashboardTutorPageState extends State<DashboardTutorPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lazuardi App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const DashboardTutorPage(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

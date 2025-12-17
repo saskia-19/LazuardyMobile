@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_constants.dart';
 import 'package:flutter_application_1/models/register_tutor_data_model.dart';
-import 'package:flutter_application_1/pages/profile/detail_pribadi_tutor_page.dart';
+import 'package:flutter_application_1/pages/profile/tutor/detail_pribadi_tutor_page.dart';
 import 'package:flutter_application_1/pages/auth/otp_verification_page.dart';
 import 'package:flutter_application_1/services/auth/post_email_register_service.dart';
 import 'package:flutter_application_1/widgets/form_field_widget.dart';

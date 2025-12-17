@@ -1,9 +1,9 @@
-mixin dataClass {
+mixin DataClass {
   String get value;
   String get tampil;
 }
 
-enum KelasEnum with dataClass {
+enum KelasEnum with DataClass {
   kelas_1('kelas 1', 'Kelas 1', 'SD', 0),
   kelas_2('kelas 2', 'Kelas 2', 'SD', 1),
   kelas_3('kelas 3', 'Kelas 3', 'SD', 2),
@@ -27,7 +27,7 @@ enum KelasEnum with dataClass {
   final int bobot;
 }
 
-enum GenderEnum with dataClass {
+enum GenderEnum with DataClass {
   pria('male', 'Laki-laki'),
   wanita('female', 'Perempuan');
 
@@ -41,11 +41,38 @@ enum GenderEnum with dataClass {
 
 
 
-enum AgamaEnum{ 
-  islam,kristen, katolik, hindu, buddha, konghucu }
+enum AgamaEnum with DataClass{ 
+  islam('islam', 'Islam'),
+  kristen('kristen', 'Kristen'), 
+  katolik('katolik', 'Katolik'), 
+  hindu('hindu', 'Hindu'), 
+  buddha('buddha', 'Buddha'), 
+  konghucu('konghucu', 'Konghucu');
+  
+  const AgamaEnum(this.value, this.tampil);
 
-enum BankEnum { bsi, bri, dpd, mandiri, bca, bni }
+  @override
+  final String value;
+  @override
+  final String tampil;
+}
+
+enum BankEnum with DataClass { 
+  bsi('bsi', 'BSI'), 
+  bri('bri', 'BRI'), 
+  dpd('dpd', 'DPD'), 
+  mandiri('mandiri', 'Mandiri'), 
+  bca('bca', 'BCA'), 
+  bni('bni', 'BNI');
+  const BankEnum(this.value, this.tampil);
+
+  @override
+  final String value;
+  @override
+  final String tampil;
+}
 
 class EnumHelper {
   // static 
 }
+
